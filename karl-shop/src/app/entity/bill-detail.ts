@@ -1,5 +1,4 @@
-
 export interface BillDetail {
-    id: number,
-    soLuong: number
+    id: number;
+    quantity: number;
 }

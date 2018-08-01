@@ -1,23 +1,36 @@
 <div class="catagories-side-menu2">
-    <!-- Close Icon -->
-    <div id="sideMenuClose" (click)="hideMenu()">
-      <i class="ti-close"></i>
-    </div>
-    <!--  Side Nav  -->
-    <div class="nav-side-menu">
-      <div class="menu-list">
-        <h6>Categories</h6>
-        <ul id="menu-content" class="menu-content collapse out">
-          <li class="home-menu"> <span class="icons"><i class="fa fa-chevron-right"></i></span> Giày Traning</li>
-          <li class="home-menu"><span class="icons"><i class="fa fa-chevron-right"></i></span>Giày Runninng</li>
-          <li class="home-menu"><span class="icons"><i class="fa fa-chevron-right"></i></span>Giày Hiking</li>
-        </ul>
-      </div>
+  <!-- Close Icon -->
+  <div id="sideMenuClose" (click)="hideMenu()">
+    <i class="ti-close"></i>
+  </div>
+  <!--  Side Nav  -->
+  <div class="nav-side-menu">
+    <div class="menu-list">
+      <ul id="menu-content" class="menu-content collapse out">
+        <li class="home-menu" (click)="getProductByCate(loai.tenLoai)" *ngFor="let loai of _loaigiayArray">
+          <span class="icons">
+            <i class="fa fa-chevron-right"></i>
+          </span> {{loai.tenLoai}}
+        </li>
+      </ul>
     </div>
   </div>
-  
+</div>
+
 <!-- ****** Header Area Start ****** -->
 <header class="header_area">
+
+  <div class="row login-row">
+    <div class="col-md-12 text-right">
+      <a class="btn btn-primary ff" (click)="signInWithFB()">Đăng nhập
+        <i class="fab fa-facebook-f icon"></i>
+      </a>
+      <a class="btn btn-danger gg" (click)="signInWithGoogle()">Đăng nhập
+        <i class="fab fa-google icon"></i>
+      </a>
+    </div>
+  </div>
+
   <!-- Top Header Area Start -->
   <div class="top_header_area">
     <div class="container h-100">
@@ -35,57 +48,16 @@
             <div class="header-cart-menu d-flex align-items-center ml-auto">
               <!-- Cart Area -->
               <div class="cart">
-                <a id="header-cart-btn" target="_blank">
-                  <span class="cart_quantity">2</span>
-                  <i class="ti-bag"></i> Giỏ Hàng $20</a>
-                <!-- Cart List Area Start -->
-                <ul class="cart-list">
-                  <li>
-                    <a href="#" class="image">
-                      <img src="../assets/images/product-img/product-10.jpg" class="cart-thumb" alt="">
-                    </a>
-                    <div class="cart-item-desc">
-                      <h6>
-                        <a href="#">Giày Luyện Tập</a>
-                      </h6>
-                      <p>1x -
-                        <span class="price">$200</span>
-                      </p>
-                    </div>
-                    <span class="dropdown-product-remove">
-                      <i class="icon-cross"></i>
-                    </span>
-                  </li>
-                  <li>
-                    <a href="#" class="image">
-                      <img src="../assets/images/product-img/product-11.jpg" class="cart-thumb" alt="">
-                    </a>
-                    <div class="cart-item-desc">
-                      <h6>
-                        <a href="#">Giày Chạy Bộ</a>
-                      </h6>
-                      <p>1x -
-                        <span class="price">$300</span>
-                      </p>
-                    </div>
-                    <span class="dropdown-product-remove">
-                      <i class="icon-cross"></i>
-                    </span>
-                  </li>
-                  <li class="total">
-                    <span class="pull-right">Tổng: $20.00</span>
-                    <a href="cart.html" class="btn btn-sm btn-cart">Cart</a>
-                    <a href="checkout-1.html" class="btn btn-sm btn-checkout">Thanh Toán</a>
-                  </li>
-                </ul>
+                <a id="header-cart-btn" routerLink="/home/cart">
+                  <i class="ti-bag"></i> Giỏ Hàng
+                </a>
               </div>
-
               <div class="header-right-side-menu ml-15" (click)="showLeftBar()">
                 <a id="sideMenuBtn">
                   <i class="ti-menu" aria-hidden="true"></i>
                 </a>
               </div>
-              
+
             </div>
           </div>
         </div>
@@ -100,72 +72,79 @@
       <div class="row h-100">
         <div class="col-12 d-md-flex justify-content-between">
           <!-- Header Social Area -->
-          <div class="header-social-area">
-            <a href="#">
-              <span class="karl-level">New</span>
-              <i class="fa fa-pinterest" aria-hidden="true"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-facebook" aria-hidden="true"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-            <a href="#">
-              <i class="fa fa-linkedin" aria-hidden="true"></i>
-            </a>
-          </div>
-          <!-- Menu Area -->
-          <div class="main-menu-area">
-            <nav class="navbar navbar-expand-lg align-items-start">
 
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar"
-                aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon">
-                  <i class="ti-menu"></i>
-                </span>
-              </button>
-
-              <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
-                <ul class="navbar-nav animated" id="nav">
-                  <li class="nav-item active">
-                    <a class="nav-link" routerLink="/home">Trang Chủ</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="/products">Sản Phẩm</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="/cart">Giỏ Hàng</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" routerLink="/checkout">Thanh Toán</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link">Chi Tiết</a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link" href="#">Liên Hệ</a>
-                  </li>
-                  <!-- <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="karlDropdown" role="button" data-toggle="dropdown" aria-haspopup="true"
-                      aria-expanded="false">Pages</a>
-                    <div class="dropdown-menu" aria-labelledby="karlDropdown">
-                      <a class="dropdown-item" routerLink="/home">Trang Chủ</a>
-                      <a class="dropdown-item" routerLink="/products">Sản Phẩm</a>
-                      <a class="dropdown-item" routerLink="/detailID">Chi Tiết</a>
-                      <a class="dropdown-item" routerLink="/cart">Giỏ Hàng</a>
-                      <a class="dropdown-item" routerLink="/checkout">Thanh Toán</a>
-                    </div>
-                  </li> -->
-                </ul>
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Help Line -->
+              <div class="help-line">
+                <a href="tel:+346573556778">
+                  <i class="ti-headphone-alt"></i> +84 090 3556 778</a>
               </div>
-            </nav>
+            </div>
           </div>
-          <!-- Help Line -->
-          <div class="help-line">
-            <a href="tel:+346573556778">
-              <i class="ti-headphone-alt"></i> +84 090 3556 778</a>
+
+          <div class="row">
+            <div class="col-md-12">
+              <!-- Menu Area -->
+              <div class="main-menu-area">
+                <nav class="navbar navbar-expand-lg align-items-start">
+
+                  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#karl-navbar" aria-controls="karl-navbar"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                      <i class="ti-menu"></i>
+                    </span>
+                  </button>
+                  <div class="collapse navbar-collapse align-items-start collapse" id="karl-navbar">
+                    <ul class="navbar-nav animated" id="nav">
+                      <li class="nav-item active">
+                        <a class="nav-link" routerLink="/home">Trang chủ</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/home/about">Giới thiệu</a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/home/products">Sản phẩm</a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" routerLink="/home/account">Tài khoản</a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a class="nav-link" routerLink="/home/lienhe">Liên Hệ</a>
+                      </li>
+                    </ul>
+                  </div>
+                </nav>
+              </div>
+            </div>
           </div>
+
+          <div class="row row-avatar">
+            <div class="col-md-8">
+              <div class="customer">
+                <span *ngIf="userInfo != null">
+                  <p class="name">Hello, {{userInfo.name}}</p>
+                </span>
+                <div class="dropdown arrow" *ngIf="userInfo != null">
+                  <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <!-- <i class="fas fa-chevron-down"></i> -->
+                  </button>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" (click)="showProfile()">Thông tin tài khoản</a>
+                    <a class="dropdown-item" (click)="signOut()">Đăng xuất</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-4">
+              <span *ngIf="userInfo != null">
+                <img class="avatar" src="{{userInfo.image}}" alt="Customer avatar">
+              </span>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -179,18 +158,18 @@
   <div class="single-discount-area">
     <h5>Miễn Phí Ship &amp; Đổi Trả</h5>
     <h6>
-      <a href="#">MUA NGAY</a>
+      <a>MUA NGAY</a>
     </h6>
   </div>
   <!-- Single Discount Area -->
   <div class="single-discount-area">
-    <h5>Giảm 20% giày tập luyện</h5>
-    <h6>Mã giảm giá: pt12201</h6>
+    <h5>Giảm 10% giày NB</h5>
+    <a>MUA NGAY</a>
   </div>
   <!-- Single Discount Area -->
   <div class="single-discount-area">
-    <h5>Giảm 20% cho học sinh</h5>
-    <h6>Mã giảm giá: stu001</h6>
+    <h5>Giảm 10% cho học sinh</h5>
+    <a>MUA NGAY</a>
   </div>
 </section>
 <!-- ****** Top Discount Area End ****** -->

@@ -6,6 +6,7 @@ import { HomeLoaiGiay } from '../../entity/home-loaigiay';
 import { Routes, Router } from '@angular/router';
 import { DetailProducts } from '../../entity/detail-products';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -15,13 +16,14 @@ import { DetailProducts } from '../../entity/detail-products';
 export class HomeComponent implements OnInit {
   _productArray: HomeProduct[] = [];
   _productArrayTemp: HomeProduct[];
-
   _loaiGiayArray: HomeLoaiGiay[];
   _detailArray: HomeProduct[];
   _tenGiay: string[] = [];
-
+  _idSelected: number[] = [];
+  tenLoai: string;
+  
   constructor(private dataService: DataService, private loaigiayService: LoaigiayService,
-    private router: Router) { }
+    private router: Router) {}
 
   ngOnInit() {
     this.getLoaiGiay();
@@ -38,7 +40,6 @@ export class HomeComponent implements OnInit {
             for (var j = 0; j < this._productArrayTemp.length; j++) {
               this._productArray[step++] = this._productArrayTemp[j];
             }
-            // console.log(this._productArray);
           },
           error => console.log("Error: " + error)
         )
@@ -55,19 +56,20 @@ export class HomeComponent implements OnInit {
           for (var i = 0; i < this._loaiGiayArray.length; i++) {
             this._tenGiay[i] = this._loaiGiayArray[i].tenLoai;
           }
-          // console.log(this._tenGiay);
           this.getProduct(this._tenGiay);
         },
         error => console.log("Error: " + error)
       )
   }
 
-
-
   //show modal product
   getDetailModal(pro: any) {
     this._detailArray = pro;
-    // console.log(this._detailArray);
+  }
+
+  getProductByCate(name) {
+    this.tenLoai = name;
+    this.router.navigate(['/home/category', this.tenLoai]);
   }
 
 }

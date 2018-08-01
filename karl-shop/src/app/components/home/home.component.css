@@ -1,21 +1,26 @@
-button.btn {
-    font-size: 16px;
-    background: transparent;
-    font-weight: bold;
-    color: #3a3a3a;
-    text-transform: uppercase;
+.row.karl-new-arrivals {
+    width: 100%;
+    margin-left: 0.5%;
 }
-button.btn:focus{
-    box-shadow: none;
+
+.col-12.col-sm-6.col-md-4.single_gallery_item.women.wow.fadeInUpBig {
+    max-width: 32%;
+    margin: 0.5%;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    position: relative;
 }
-button.btn:hover{
-    color: #ff084e;
+footer.footer_area {
+    margin-top: 50px;
 }
-.product-description p {
-    cursor: pointer;
-    transition: 0.4s;
+
+.product-img img {
+    height: 240px;
 }
-.product-description p:hover {
-    color: #000;
-    transition: 0.4s;
+
+
+section .container {
+    margin-bottom: 50px;
 }
+
+

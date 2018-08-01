@@ -3,6 +3,9 @@ import { Subscription } from 'rxjs';
 import { Observable } from 'rxjs/Observable';
 import { HttpHeaders } from '@angular/common/http';
 import "rxjs/Rx";
+// jquyery phan trang
+declare var jquery:any;
+declare var $ :any;
 //Services
 import { UserService } from '../../services/user.service';
 //Models
@@ -23,11 +26,17 @@ export class TableKhachhangComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.loadData();
   }
+  // phân trang
+  showDataTable() {
+		$(document).ready(function () {
+			$('#table_kh').DataTable();
+		});
+	}
 // Load all Customer
   loadData() {
 		this.khachhangService.getAllKhachhang().subscribe(data => {
-			// console.log(data);
-			this.list_kh = data;
+      this.list_kh = data;
+      this.showDataTable();
 		}, error => {
 			console.log(error);
 		});

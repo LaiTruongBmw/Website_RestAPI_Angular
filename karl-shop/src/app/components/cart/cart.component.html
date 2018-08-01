@@ -8,35 +8,55 @@
             <thead>
               <tr>
                 <th>Sản phẩm</th>
-                <th>Giá</th>
+                <th>Kích thước</th>
+                <th>Giá cũ</th>
+                <th>Chiết khấu</th>
+                <th>Giá mới</th>
                 <th>Số lượng</th>
                 <th>Tổng</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody>
-              <tr>
+            <tbody *ngIf="_productInCart!=null">
+              <tr *ngFor="let pro of _productInCart">
                 <td class="cart_product_img d-flex align-items-center">
                   <a href="#">
-                    <img src="../assets/images/product-img/product-9.jpg" alt="Product">
+                    <img src="{{ pro.hinhSanPham }}" alt="Product">
                   </a>
-                  <h6>Adidas Cloudfoam X5</h6>
+                  <h6>{{ pro.tenSanPham }}</h6>
+                </td>
+                <td>
+                  <span>{{ pro.tenKichThuoc }}</span>
                 </td>
                 <td class="price">
-                  <span>$399</span>
+                  <span>{{ pro.donGia | number:'1.0'}} đ</span>
+                </td>
+                <td class="price">
+                  <span>{{ pro.chietKhau * 100 }}%</span>
+                </td>
+                <td class="price">
+                  <span>{{ pro.donGia * (1 - pro.chietKhau) | number:'1.0' }} đ</span>
                 </td>
                 <td class="qty">
                   <div class="quantity">
-                    <span class="qty-minus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) effect.value--;return false;">
+                    <span class="qty-minus" (click)="minusQuantity(pro.id,pro.tenKichThuoc,pro.soLuong)">
                       <i class="fa fa-minus" aria-hidden="true"></i>
                     </span>
-                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity" value="1">
-                    <span class="qty-plus" onclick="var effect = document.getElementById('qty'); var qty = effect.value; if( !isNaN( qty )) effect.value++;return false;">
+                    <input type="number" disabled="all" [(ngModel)]="pro.soLuong" class="qty-text" id="qty" step="1" min="1" max="99" name="quantity"
+                      value="1">
+                    <span class="qty-plus" (click)="plusQuantity(pro.id,pro.tenKichThuoc,pro.soLuong)">
                       <i class="fa fa-plus" aria-hidden="true"></i>
                     </span>
                   </div>
+                  <span class="quantityMax">Số lượng còn: {{pro.soLuongKho}}</span>
                 </td>
                 <td class="total_price">
-                  <span>$399</span>
+                  <span>{{ pro.donGia * (1 - pro.chietKhau) * pro.soLuong | number:'1.0'}} đ</span>
+                </td>
+                <td class="btnRemove">
+                  <div class="removeProduct">
+                    <i (click)="deleteProduct(pro.id,pro.tenKichThuoc)" class="far fa-trash-alt remove"></i>
+                  </div>
                 </td>
               </tr>
             </tbody>
@@ -45,11 +65,11 @@
 
         <div class="cart-footer d-flex mt-30">
           <div class="back-to-shop w-50">
-            <a href="shop-grid-left-sidebar.html">Tiếp tục mua sắm</a>
+            <a class="continue" routerLink="/home/products" (click)="goShopping()">Tiếp tục mua sắm</a>
           </div>
           <div class="update-checkout w-50 text-right">
-            <a href="#">Hủy đơn hàng</a>
-            <a href="#">Cập nhật đơn hàng</a>
+            <a (click)="cancelAllProducts()" class="destroy">Hủy đơn hàng</a>
+            <!-- <a class="cart-submit" (click)="updateCart()">Cập nhật đơn hàng</a> -->
           </div>
         </div>
 
@@ -57,61 +77,21 @@
     </div>
 
     <div class="row">
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="coupon-code-area mt-70">
-          <div class="cart-page-heading">
-            <h5>Mã ưu đãi</h5>
-            <p>Nhập mã ưu đãi của bạn</p>
-          </div>
-          <form action="#">
-            <input type="search" name="search" placeholder="#569ab15">
-            <button type="submit">OK</button>
-          </form>
-        </div>
+
+      <div class="col-lg-8">
+        <!-- push 8 -->
       </div>
-      <div class="col-12 col-md-6 col-lg-4">
-        <div class="shipping-method-area mt-70">
-          <div class="cart-page-heading">
-            <h5>Hình thức vận chuyển</h5>
-            <p>Chọn hình thức vận chuyển</p>
-          </div>
 
-          <div class="custom-control custom-radio mb-30">
-            <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio1">
-              <span>Cấp tốc</span>
-              <span>$4.99</span>
-            </label>
-          </div>
-
-          <div class="custom-control custom-radio mb-30">
-            <input type="radio" id="customRadio2" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio2">
-              <span>Tiêu chuẩn</span>
-              <span>$1.99</span>
-            </label>
-          </div>
-
-          <div class="custom-control custom-radio">
-            <input type="radio" id="customRadio3" name="customRadio" class="custom-control-input">
-            <label class="custom-control-label d-flex align-items-center justify-content-between" for="customRadio3">
-              <span>Tự đến lấy</span>
-              <span>Free</span>
-            </label>
-          </div>
-        </div>
-      </div>
       <div class="col-12 col-lg-4">
         <div class="cart-total-area mt-70">
           <div class="cart-page-heading">
             <h5>Hóa đơn</h5>
-            <!-- <p>Final info</p> -->
           </div>
 
           <ul class="cart-total-chart">
             <li>
               <span>Tiền sản phẩm</span>
-              <span>$59.90</span>
+              <span>{{ _sumOfMoney | number:'1.0' }} đ</span>
             </li>
             <li>
               <span>Tiền vận chuyển</span>
@@ -122,14 +102,42 @@
                 <strong>Tổng</strong>
               </span>
               <span>
-                <strong>$59.90</strong>
+                <strong>{{ _sumOfMoney | number:'1.0' }} đ</strong>
               </span>
             </li>
           </ul>
-          <a href="checkout.html" class="btn karl-checkout-btn">Tiến hành thanh toán</a>
+          <a class="btn karl-checkout-btn" (click)="getAllProductInCart()">Tiến hành thanh toán</a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Show login-modal after (click)="getAllProductInCart()" -->
+  <div class="modal-wrapper"></div>
+
+  <div class="modal-login">
+    <div class="modal-content">
+      <div class="row row-title">
+        <div class="col-sm-12 text-center col-title">
+          <span>Đăng nhập</span>
+          <i class="fas fa-times icon-trash" (click)="removeModal()"></i>
+        </div>
+      </div>
+      <div class="row modal-row">
+        <div class="col-sm-12 text-center">
+          <a class="btn btn-primary ff" id="fbMode" (click)="signInWithFB()">Đăng nhập
+            <i class="fab fa-facebook-f icon"></i>
+          </a>
+          <a class="btn btn-danger gg" id="ggMode" (click)="signInWithGoogle()">Đăng nhập
+            <i class="fab fa-google icon"></i>
+          </a>
         </div>
       </div>
     </div>
   </div>
+  <!-- Show login-modal after (click)="getAllProductInCart()" -->
+  
 </div>
-<!-- ****** Cart Area End ****** -->
